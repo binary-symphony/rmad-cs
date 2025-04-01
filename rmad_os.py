@@ -10,7 +10,7 @@ from rich.prompt import Prompt
 from rich.text import Text
 
 
-version = str("0.0.4")
+version = str("0-0-5")
 columns = 39
 titlecolumns = columns
 selected_item = 0
@@ -39,7 +39,8 @@ def titlehr(title):
     titlecolumns = columns - len(title)
     print(title + titlecolumns * "═")
     
-def wrap_text(text, wrap="║║", total_width=39):
+    
+def wrapText(text, wrap="║║", total_width=39):
     if len(wrap) != 2:
         raise ValueError("reqs failed, wrapper isn't two characters long.")
     
@@ -54,13 +55,19 @@ def wrap_text(text, wrap="║║", total_width=39):
     
     return f"{wrap[0]} {padded_text} {wrap[1]}"
 
+
+
+
+def mainMenu():
+    clear()
     
 
     
     
     
 if __name__ == "__main__":
-    titlehr(wrap_text("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
-    print(wrap_text("      └────── Version: v" + version))
-    print(wrap_text("this is a test."))
-    print(wrap_text("this is a test. do not worry."))
+    clear()
+    titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
+    print(wrapText("      └────── Version: v" + version))
+    print(wrapText("this is a test."))
+    print(wrapText("this is a test. do not worry."))

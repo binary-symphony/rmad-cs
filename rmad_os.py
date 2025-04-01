@@ -43,19 +43,15 @@ def wrap_text(text, wrap="║║", total_width=39):
     if len(wrap) != 2:
         raise ValueError("reqs failed, wrapper isn't two characters long.")
     
-    # Strip rich markup for accurate length calculation
     plain_text = Text.from_markup(text).plain
     text_length = len(plain_text)
     
-    # Calculate the available space for padding
-    padding_width = total_width - len(wrap) - text_length - 8  # 2 spaces for padding inside the wrapper
+    padding_width = total_width - len(wrap) - text_length - 8
     if padding_width < 0:
         raise ValueError(f"Text is too long. Should be less than {total_width}.")
     
-    # Add padding only to the right side
     padded_text = f"{text}{' ' * padding_width}"
     
-    # Wrap the text
     return f"{wrap[0]} {padded_text} {wrap[1]}"
 
     

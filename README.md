@@ -9,6 +9,6 @@ The PRS RMAD (Remote Access and Monitoring Device) allows for connecting to and 
 
 ## **Did I forget to mention that this isn't just a defense?**
 
-The RMAD is also capable of "takeover"... whatever that means. Go wild. ^[1]
+The RMAD is also capable of... sorry let me re-read this... "takeover" - whatever that means. Go wild. [^1]
 
-^[1]: It's capable of BadUSB, file transfer, etc. Really anything you could put on a usb stick will work here.
+[^1]: It's capable of BadUSB, file transfer, etc. Really anything you could put on a usb stick will work here.

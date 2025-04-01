@@ -60,14 +60,45 @@ def wrapText(text, wrap="║║", total_width=39):
 
 def mainMenu():
     clear()
-    
+    titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
+    print(wrapText("      └────── Version: v" + version))
+    key=getkey()
+    selected_item = 0
+    items = ["Watch Mode", "Configure Devices", "Settings", "Exit"]
+    item_desc = ["< [dim]Open Watch Mode[/] >",
+                 "< [dim]Access compatible settings.[/] >",
+                 "< [dim]Open RMAD settings.[/] >",
+                 "< [dim]Exit the OS.[/] >"]
+    print(wrapText(items[selected_item]))
+    print(wrapText(item_desc[selected_item]))
+    while True:
+        if key == keys.UP:
+            selected_item = (selected_item - 1) % len(items)
+            clear()
+            print(wrapText(items[selected_item]))
+            print(wrapText(item_desc[selected_item]))
+        elif key == keys.DOWN:
+            selected_item = (selected_item + 1) % len(items)
+            clear()
+            print(wrapText(items[selected_item]))
+            print(wrapText(item_desc[selected_item]))
+        elif key == keys.ENTER:
+            if selected_item == 0:
+                watchMode()
+                break
+            elif selected_item == 1:
+                configureDevices()
+                break
+            elif selected_item == 2:
+                settings()
+                break
+            elif selected_item == 3:
+                exit(0)
+        key = getkey()
 
     
     
     
 if __name__ == "__main__":
     clear()
-    titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
-    print(wrapText("      └────── Version: v" + version))
-    print(wrapText("this is a test."))
-    print(wrapText("this is a test. do not worry."))
+    mainMenu()

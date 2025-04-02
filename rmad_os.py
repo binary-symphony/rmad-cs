@@ -64,7 +64,7 @@ def wrapText(text, wrap="║║", total_width=columns):
     plain_text = Text.from_markup(text).plain
     text_length = len(plain_text)
     
-    padding_width = total_width - len(wrap) - text_length - 8
+    padding_width = total_width - len(wrap) - text_length - 2
     if padding_width < 0:
         raise ValueError(f"Text is too long. Should be less than {total_width}.")
     

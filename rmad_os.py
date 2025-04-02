@@ -28,7 +28,7 @@ buttonB.switch_to_input()
 
 
 version = str("alpha1")
-columns = 39
+columns = os.get_terminal_size().columns
 titlecolumns = columns
 selected_item = 0
 global total_width
@@ -57,7 +57,7 @@ def titlehr(title):
     print(title + titlecolumns * "═")
     
     
-def wrapText(text, wrap="║║", total_width=42):
+def wrapText(text, wrap="║║", total_width=columns):
     if len(wrap) != 2:
         raise ValueError("reqs failed, wrapper isn't two characters long.")
     
@@ -85,6 +85,7 @@ def mainMenu():
     print(wrapText("      └─── Version: v " + version))
     while True:
         if buttonB.value and not buttonA.value:
+            wait(.1)
             selected_item = (selected_item + 1) % len(items)
             clear()
             titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
@@ -92,6 +93,7 @@ def mainMenu():
             print(wrapText(items[selected_item]))
             print(wrapText(item_desc[selected_item]))
         if buttonA.value and not buttonB.value:
+            wait(.1)
             if selected_item == 0:
                 watchMode()
                 break
@@ -103,6 +105,7 @@ def mainMenu():
 
 def watchMode():
     while not buttonA.value and not buttonB.value:
+        wait(.1)
         clear()
         titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
         print(wrapText("      └─── Watch Mode"))

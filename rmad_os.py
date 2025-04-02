@@ -8,9 +8,45 @@ from rich import print
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.text import Text
+import pytz
+from datetime import datetime
+import digitalio
+import board
+
+from adafruit_rgb_display.rgb import color565
+from adafruit_rgb_display import st7789
 
 
-version = str("0-0-5")
+
+cs_pin = digitalio.DigitalInOut(board.CE0)
+dc_pin = digitalio.DigitalInOut(board.D25)
+reset_pin = None
+BAUDRATE = 64000000  # The pi can be very fast!
+# Create the ST7789 display:
+display = st7789.ST7789(
+    board.SPI(),
+    cs=cs_pin,
+    dc=dc_pin,
+    rst=reset_pin,
+    baudrate=BAUDRATE,
+    width=135,
+    height=240,
+    x_offset=53,
+    y_offset=40,
+)
+
+backlight = digitalio.DigitalInOut(board.D22)
+backlight.switch_to_output()
+backlight.value = True
+buttonA = digitalio.DigitalInOut(board.D23)
+buttonB = digitalio.DigitalInOut(board.D24)
+buttonA.switch_to_input()
+buttonB.switch_to_input()
+
+
+
+
+version = str("alpha1")
 columns = 39
 titlecolumns = columns
 selected_item = 0
@@ -59,30 +95,22 @@ def wrapText(text, wrap="║║", total_width=39):
 
 
 def mainMenu():
-    clear()
-    titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
-    print(wrapText("      └────── Version: v" + version))
-    key=getkey()
     selected_item = 0
-    items = ["Watch Mode", "Configure Devices", "Settings", "Exit"]
+    items = ["Watch Mode", "Config", "Exit"]
     item_desc = ["< [dim]Open Watch Mode[/] >",
-                 "< [dim]Access compatible settings.[/] >",
-                 "< [dim]Open RMAD settings.[/] >",
+                 "< [dim]Access settings.[/] >",
                  "< [dim]Exit the OS.[/] >"]
-    print(wrapText(items[selected_item]))
-    print(wrapText(item_desc[selected_item]))
+    titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
+    print(wrapText("      └─── Version: v " + version))
     while True:
-        if key == keys.UP:
-            selected_item = (selected_item - 1) % len(items)
-            clear()
-            print(wrapText(items[selected_item]))
-            print(wrapText(item_desc[selected_item]))
-        elif key == keys.DOWN:
+        if buttonB.value and not buttonA.value:
             selected_item = (selected_item + 1) % len(items)
             clear()
+            titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
+            print(wrapText("      └─── Version: v " + version))
             print(wrapText(items[selected_item]))
             print(wrapText(item_desc[selected_item]))
-        elif key == keys.ENTER:
+        if buttonA.value and not buttonB.value:
             if selected_item == 0:
                 watchMode()
                 break
@@ -90,14 +118,20 @@ def mainMenu():
                 configureDevices()
                 break
             elif selected_item == 2:
-                settings()
-                break
-            elif selected_item == 3:
                 exit(0)
-        key = getkey()
 
-    
-    
+def watchMode():
+    while not buttonA.value and not buttonB.value:
+        clear()
+        titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
+        print(wrapText("      └─── Watch Mode"))
+        print(wrapText("[dim]Press any key to exit.[/]"))
+        # Get the current time in EST for Georgia, US
+        est = pytz.timezone('US/Eastern')
+        current_time = datetime.now(est).strftime("%H:%M:%S")
+
+        print(wrapText(f"Current Time (EST): {current_time}"))
+    mainMenu()
     
 if __name__ == "__main__":
     clear()

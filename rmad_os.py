@@ -57,7 +57,7 @@ def titlehr(title):
     print(title + titlecolumns * "═")
     
     
-def wrapText(text, wrap="║║", total_width=39):
+def wrapText(text, wrap="║║", total_width=42):
     if len(wrap) != 2:
         raise ValueError("reqs failed, wrapper isn't two characters long.")
     

@@ -102,6 +102,7 @@ def mainMenu():
                 break
             elif selected_item == 2:
                 exit(0)
+            
 
 def watchMode():
     clear()
@@ -115,7 +116,7 @@ def watchMode():
         print(wrapText(f"Current Time (EST): {current_time}"))
         wait(1)
         clear()
-        if buttonA.value or buttonB.value:
+        if buttonA.value is True:
             break
         else:
             continue

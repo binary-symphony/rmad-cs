@@ -111,12 +111,14 @@ def watchMode():
         print(wrapText("[dim]Press any key to exit.[/]"))
         # Get the current time in EST for Georgia, US
         est = pytz.timezone('US/Eastern')
-        current_time = datetime.now(est).strftime("%h:%M:%S")
+        current_time = datetime.now(est).strftime("%H:%M:%S")
         print(wrapText(f"Current Time (EST): {current_time}"))
         wait(1)
         clear()
         if buttonA.value or buttonB.value:
             break
+        else:
+            continue
     mainMenu()
     
 if __name__ == "__main__":

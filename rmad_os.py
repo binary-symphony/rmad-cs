@@ -27,7 +27,7 @@ buttonB.switch_to_input()
 
 
 
-version = str("alpha1")
+version = str("alpha2")
 columns = os.get_terminal_size().columns
 titlecolumns = columns
 selected_item = 0
@@ -113,7 +113,6 @@ def watchMode():
         # Get the current time in EST for Georgia, US
         est = pytz.timezone('US/Eastern')
         current_time = datetime.now(est).strftime("%H:%M:%S")
-
         print(wrapText(f"Current Time (EST): {current_time}"))
     mainMenu()
     

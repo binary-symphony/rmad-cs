@@ -27,7 +27,7 @@ buttonB.switch_to_input()
 
 
 
-version = str("alpha2")
+version = str("alpha3")
 columns = os.get_terminal_size().columns
 titlecolumns = columns
 selected_item = 0
@@ -85,7 +85,7 @@ def mainMenu():
     print(wrapText("      └─── Version: v " + version))
     while True:
         if buttonB.value and not buttonA.value:
-            wait(.1)
+            wait(.25)
             selected_item = (selected_item + 1) % len(items)
             clear()
             titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
@@ -104,9 +104,7 @@ def mainMenu():
                 exit(0)
 
 def watchMode():
-    while not buttonA.value and not buttonB.value:
-        wait(.1)
-        clear()
+    while True:
         titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
         print(wrapText("      └─── Watch Mode"))
         print(wrapText("[dim]Press any key to exit.[/]"))
@@ -114,6 +112,10 @@ def watchMode():
         est = pytz.timezone('US/Eastern')
         current_time = datetime.now(est).strftime("%H:%M:%S")
         print(wrapText(f"Current Time (EST): {current_time}"))
+        wait(.5)
+        clear()
+        if buttonA.value or buttonB.value:
+            break
     mainMenu()
     
 if __name__ == "__main__":

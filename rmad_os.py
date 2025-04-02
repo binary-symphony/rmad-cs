@@ -117,9 +117,7 @@ def watchMode():
         wait(1)
         clear()
         if buttonA.value is True:
-            break
-        else:
-            continue
+            print("Button A pressed")
     mainMenu()
     
 if __name__ == "__main__":

@@ -116,8 +116,8 @@ def watchMode():
         print(wrapText(f"Current Time (EST): {current_time}"))
         wait(1)
         clear()
-        if buttonA.value is True:
-            print("Button A pressed")
+        if buttonA.value is False:
+            break
     mainMenu()
     
 if __name__ == "__main__":

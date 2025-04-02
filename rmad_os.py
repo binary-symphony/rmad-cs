@@ -27,7 +27,7 @@ buttonB.switch_to_input()
 
 
 
-version = str("alpha3a")
+version = str("alpha3b")
 columns = os.get_terminal_size().columns
 titlecolumns = columns
 selected_item = 0
@@ -111,12 +111,12 @@ def watchMode():
         print(wrapText("[dim]Press any key to exit.[/]"))
         # Get the current time in EST for Georgia, US
         est = pytz.timezone('US/Eastern')
-        current_time = datetime.now(est).strftime("%H:%M:%S")
+        current_time = datetime.now(est).strftime("%h:%M:%S %A")
         print(wrapText(f"Current Time (EST): {current_time}"))
-        wait(.5)
+        wait(1)
         clear()
-        # if buttonA.value or buttonB.value:
-            # break
+        if buttonA.value or buttonB.value:
+            break
     mainMenu()
     
 if __name__ == "__main__":

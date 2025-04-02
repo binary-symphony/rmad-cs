@@ -27,7 +27,7 @@ buttonB.switch_to_input()
 
 
 
-version = str("alpha3")
+version = str("alpha3a")
 columns = os.get_terminal_size().columns
 titlecolumns = columns
 selected_item = 0
@@ -104,6 +104,7 @@ def mainMenu():
                 exit(0)
 
 def watchMode():
+    clear()
     while True:
         titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
         print(wrapText("      └─── Watch Mode"))
@@ -114,8 +115,8 @@ def watchMode():
         print(wrapText(f"Current Time (EST): {current_time}"))
         wait(.5)
         clear()
-        if buttonA.value or buttonB.value:
-            break
+        # if buttonA.value or buttonB.value:
+            # break
     mainMenu()
     
 if __name__ == "__main__":

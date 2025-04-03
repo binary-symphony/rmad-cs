@@ -27,7 +27,7 @@ buttonB.switch_to_input()
 
 
 version = str("alpha3b")
-columns = 45
+columns = 44
 titlecolumns = columns
 selected_item = 0
 global total_width

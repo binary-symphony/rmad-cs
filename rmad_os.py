@@ -1,8 +1,6 @@
 import os
 import time
 import random
-import getkey
-from getkey import keys, getkey
 from rich.console import Console
 from rich import print
 from rich.panel import Panel
@@ -28,7 +26,7 @@ buttonB.switch_to_input()
 
 
 version = str("alpha3b")
-columns = os.get_terminal_size().columns
+columns = 45
 titlecolumns = columns
 selected_item = 0
 global total_width

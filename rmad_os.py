@@ -12,6 +12,9 @@ from datetime import datetime
 import digitalio
 import board
 
+
+from pynput.keyboard import Controller
+
 from adafruit_rgb_display.rgb import color565
 from adafruit_rgb_display import st7789
 
@@ -71,8 +74,31 @@ def wrapText(text, wrap="║║", total_width=columns):
     
     return f"{wrap[0]} {padded_text} {wrap[1]}"
 
+##items = ["Watch Mode", "Config", "Exit"]
+    item_desc = ["< [dim]Open Watch Mode[/] >",
+                 "< [dim]Access settings.[/] >",
+                 "< [dim]Exit the OS.[/] >"]
 
-
+def selectMenu(items,item_desc):
+    while True:
+        if buttonB.value and not buttonA.value:
+            wait(.25)
+            selected_item = (selected_item + 1) % len(items)
+            clear()
+            titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
+            print(wrapText("[dim]Select an Option:[/]"))
+            print(wrapText(items[selected_item]))
+            print(wrapText(item_desc[selected_item]))
+            if buttonB.value and not buttonA.value:
+                wait(.25)
+                selected_item = (selected_item + 1) % len(items)
+                clear()
+                titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
+                print(wrapText("[dim]Select an Option:[/]"))
+                print(wrapText(items[selected_item]))
+                print(wrapText(item_desc[selected_item]))
+            if buttonA.value and not buttonB.value:
+                return(selected_item)
 
 def mainMenu():
     selected_item = 0
@@ -82,25 +108,15 @@ def mainMenu():
                  "< [dim]Exit the OS.[/] >"]
     titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
     print(wrapText("      └─── Version: v " + version))
-    while True:
-        if buttonB.value and not buttonA.value:
-            wait(.25)
-            selected_item = (selected_item + 1) % len(items)
-            clear()
-            titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
-            print(wrapText("      └─── Version: v " + version))
-            print(wrapText(items[selected_item]))
-            print(wrapText(item_desc[selected_item]))
-        if buttonA.value and not buttonB.value:
-            wait(.1)
-            if selected_item == 0:
-                watchMode()
-                break
-            elif selected_item == 1:
-                configureDevices()
-                break
-            elif selected_item == 2:
-                exit(0)
+    selectMenu(items,item_desc)
+    selection = selectMenu()
+    wait(.1)
+    if selected_item == 0:
+        watchMode()
+    elif selected_item == 1:
+        payloadMode()
+    elif selected_item == 2:
+        exit(0)
             
 
 def watchMode():

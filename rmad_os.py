@@ -13,7 +13,7 @@ import digitalio
 import board
 
 
-from pynput.keyboard import Controller
+import keyboard
 
 from adafruit_rgb_display.rgb import color565
 from adafruit_rgb_display import st7789

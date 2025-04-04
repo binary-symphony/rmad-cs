@@ -127,7 +127,6 @@ def watchMode():
     mainMenu()
 
 def payloadMode():
-    ui = UInput()
     payloadNames = ["Login", "Payload 2", "Payload 3"]
     payloadDesc = ["< [dim]Login Script[/] >",
                    "< [dim]Payload 2[/] >",

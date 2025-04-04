@@ -12,8 +12,8 @@ from datetime import datetime
 import digitalio
 import board
 
-
-import keyboard
+import evdev
+from evdev import UInput, ecodes as e
 
 from adafruit_rgb_display.rgb import color565
 from adafruit_rgb_display import st7789
@@ -128,6 +128,7 @@ def watchMode():
     mainMenu()
 
 def payloadMode():
+    ui = UInput()
     payloadNames = ["Login", "Payload 2", "Payload 3"]
     payloadDesc = ["< [dim]Login Script[/] >",
                    "< [dim]Payload 2[/] >",
@@ -135,10 +136,12 @@ def payloadMode():
     clear()
     selection = selectMenu(payloadNames,payloadDesc)
     if selection == 1:
-        keyboard.write('student\william.caswell')
-        keyboard.press_and_release('tab')
-        keyboard.write('1!LolaLover')
-        keyboard.press_and_release('enter')
+        ui.write(e.EV_KEY, e.KEY_A, 1)  # KEY_A down
+    ui.write(e.EV_KEY, e.KEY_A, 0)  # KEY_A up
+    ui.syn()
+
+    ui.close()
+    mainMenu()
 
 if __name__ == "__main__":
     clear()

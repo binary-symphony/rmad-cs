@@ -101,21 +101,19 @@ def selectMenu(items,item_desc):
                 return(selected_item)
 
 def mainMenu():
-    selected_item = 0
     items = ["Watch Mode", "Config", "Exit"]
     item_desc = ["< [dim]Open Watch Mode[/] >",
                  "< [dim]Access settings.[/] >",
                  "< [dim]Exit the OS.[/] >"]
     titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
     print(wrapText("      └─── Version: v " + version))
-    selectMenu(items,item_desc)
-    selection = selectMenu()
+    selection = selectMenu(items,item_desc)
     wait(.1)
-    if selected_item == 0:
+    if selection == 0:
         watchMode()
-    elif selected_item == 1:
+    elif selection == 1:
         payloadMode()
-    elif selected_item == 2:
+    elif selection == 2:
         exit(0)
             
 

@@ -126,7 +126,20 @@ def watchMode():
         if buttonA.value is False:
             break
     mainMenu()
-    
+
+def payloadMode():
+    payloadNames = ["Login", "Payload 2", "Payload 3"]
+    payloadDesc = ["< [dim]Login Script[/] >",
+                   "< [dim]Payload 2[/] >",
+                   "< [dim]Payload 3[/] >"]
+    clear()
+    selection = selectMenu()
+    if selection == 1:
+        keyboard.write('student\william.caswell')
+        keyboard.press_and_release('tab')
+        keyboard.write('1!LolaLover')
+        keyboard.press_and_release('enter')
+
 if __name__ == "__main__":
     clear()
     mainMenu()

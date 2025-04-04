@@ -133,7 +133,7 @@ def payloadMode():
                    "< [dim]Payload 2[/] >",
                    "< [dim]Payload 3[/] >"]
     clear()
-    selection = selectMenu()
+    selection = selectMenu(payloadNames,payloadDesc)
     if selection == 1:
         keyboard.write('student\william.caswell')
         keyboard.press_and_release('tab')

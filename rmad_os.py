@@ -80,6 +80,7 @@ def wrapText(text, wrap="║║", total_width=columns):
                  "< [dim]Exit the OS.[/] >"]
 
 def selectMenu(items,item_desc):
+    selected_item = 0
     while True:
         if buttonB.value and not buttonA.value:
             wait(.25)
@@ -89,16 +90,9 @@ def selectMenu(items,item_desc):
             print(wrapText("[dim]Select an Option:[/]"))
             print(wrapText(items[selected_item]))
             print(wrapText(item_desc[selected_item]))
-            if buttonB.value and not buttonA.value:
-                wait(.25)
-                selected_item = (selected_item + 1) % len(items)
-                clear()
-                titlehr(wrapText("[red]RMAD[/] CS [dim]by Pale Raven Systems[/]"))
-                print(wrapText("[dim]Select an Option:[/]"))
-                print(wrapText(items[selected_item]))
-                print(wrapText(item_desc[selected_item]))
-            if buttonA.value and not buttonB.value:
-                return(selected_item)
+        if buttonA.value and not buttonB.value:
+            return(selected_item)
+            
 
 def mainMenu():
     items = ["Watch Mode", "Config", "Exit"]

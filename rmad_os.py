@@ -12,8 +12,7 @@ from datetime import datetime
 import digitalio
 import board
 
-import evdev
-from evdev import UInput, ecodes as e
+import hid
 
 from adafruit_rgb_display.rgb import color565
 from adafruit_rgb_display import st7789
@@ -136,11 +135,14 @@ def payloadMode():
     clear()
     selection = selectMenu(payloadNames,payloadDesc)
     if selection == 1:
-        ui.write(e.EV_KEY, e.KEY_A, 1)  # KEY_A down
-    ui.write(e.EV_KEY, e.KEY_A, 0)  # KEY_A up
-    ui.syn()
-
-    ui.close()
+        device = hid.device()
+        device.open_vendor(0x2109,0x0001)
+        device.set_config(0x01)
+        keys = [0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d]
+        for key in keys:
+            device.send_feature_report([0x00, key])
+            time.sleep(0.1)
+        
     mainMenu()
 
 if __name__ == "__main__":
